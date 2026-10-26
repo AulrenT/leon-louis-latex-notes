@@ -1,0 +1,141 @@
+\documentclass[landscape, 8pt]{extarticle}
+
+\usepackage{../../preamble}
+\usepackage[separate]{../../rss/thmboxes_v5}
+
+
+\begin{document}
+	
+%\fontsize{4pt}{5pt} \selectfont %Smallest legible font size when printing with UoE Main Library printers, however some resolution issues for extremely small charactes such as subscripts inside fractions. Only use if you *really* need the extra space
+\fontsize{5pt}{6pt} \selectfont
+	
+%Reduce horizontal padding in 'tabular' environment, make rows taller for legibility
+\setlength\tabcolsep{4.5pt}
+\setlength\extrarowheight{2pt}
+	
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+\begin{multicols*}{4}
+	\raggedcolumns 
+	%Original template by Leon, modified by Louis
+	\vspace{-5pt}
+	\subsection*{StatsMeth Exam 2026/7 - }
+	\vspace{-5pt}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBABILITY/STATS REFRESH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+		\begin{rem}[Notation]{rem:notation}{ }
+			\begin{itemize}
+				\item Typically $X$ for discrete RV, $Y$ for continuous
+			\end{itemize}
+			
+		\end{rem}
+
+
+
+{\footnotesize \textbf{\underline{Probability/Statistics Refresh}}}
+		
+		
+		\begin{rcl}[Basics]{rcl:basics}{ }
+			\begin{itemize}
+				\item \textbf{pmf} - discrete - $\mathbb{P}[X = x]$ - $f_X(x)$. $0 \le f_X(x) \le 1$, $\sum_{x\in \Omega} f_X(x) = 1$.
+				\item \textbf{pdf} - continuous - $\mathbb{P}[a \le Y \le b] = \int_{a}^{b}f_Y(y) \text{ dy}$. $\mathbb{P}[Y = y] = 0$, $f_Y(y) \ge 0$, $\int_{-\infty}^{\infty} f_Y(y) \text{ dy} = 1$.
+				\item \textbf{CDF} - $\mathbb{P}[X \le x]$ - $F_X (x)$ = $\sum_{u \le x} f_X(u)$ or $\int_{-\infty}^{y} f_Y(u) \text{ du}$
+				\item \textbf{Quantile} - $q_p = F^{-1}_Y(p)$ for prob $p$ s.t. $\mathbb{P}[Y \le q_p] = F_Y(q_p) = p$
+				\item \textbf{Joint pmfs} - $f_{XY} (x, y) = \mathbb{P}[X = x \cap Y = y]$
+				\item \textbf{Joint pdfs} - $f_{XY} (x, y) = \mathbb{P}[(X, Y)\in T \subseteq \mathbb{R}^2] = \iint_{(x, y)\in T} f_{XY} (x, y) \text{ dx} \text{ dy}$
+				\item \textbf{Marginal pmf/pdf} - $f_X(x) = \sum_{y} f_{XY} (x, y)$ or $\int_{-\infty}^{\infty}f_{XY} (x, y) \text{ dy}$
+				\item \textbf{Conditional pmf/pdf} - $F_{X|Y} (x | y) = \frac{f_{XY} (x, y)}{f_Y(y)}$
+				\item \textbf{Independence} - $\bm{X} = (X_1, \dots, X_n)$ ind. iff $F_{\bm{X}} (\bm{x}) = \prod_{i=1}^{n}f_{X_i} (x_i)$
+				\item $X, Y$ ind. $\implies \Cor (X, Y) = 0$, $\Cor (X, Y) = 0 \nRightarrow X, Y$ ind.
+			\end{itemize}
+			
+		\end{rcl}
+		
+		
+		\begin{thm}[Laws Of Large Numbers]{thm:llns}{ }
+			Suppose $X_1, X_2, \dots, X_n \overset{iid}{\sim} F_X$ are s.t. $E[X_i] = \mu$.
+			\begin{itemize}
+				\item \textbf{Weak}: $\overline{X}_n \overset{p}{\to} \mu$ as $n \to \infty$, ie for $\epsilon > 0$, $\lim_{n\to \infty} \mathbb{P}[|\overline{X}_n - \mu| <\epsilon] = 1$.
+				\item \textbf{Strong:} $\overline{X}_n \overset{a.s.}{\to} \mu$ as $n \to \infty$, ie $\mathbb{P}[\lim_{n\to \infty} \overline{X}_n = \mu] = 1$ 
+			\end{itemize}
+			Difference: Weak law describes convergence of a sequence of probabilities, strong law describes how a sequence of RVs behave in the limit.
+			
+		\end{thm}
+		
+		
+		\begin{mthm}[Central Limit Theorem]{mthm: CLT}{ }
+			Let $X_1, X_2, \dots, X_n \overset{iid}{\sim} F_X$ s.t. $\mathbb{E}[X_i] = \mu$ and $\Var(X_i) = \sigma^2\in (0, \infty)$.\\
+			Then $\frac{\sqrt{n} (\overline{X}_n - \mu)}{\sigma} \overset{d}{\to} \mathcal{N}(0, 1)$, or $\sqrt{n} (\overline{X}_n - \mu) \overset{d}{\to} \mathcal{N}(0, \sigma^2)$, where $\overset{d}{\to}$ denotes convergence in distribution (convergence of the cdfs).
+			
+		\end{mthm}
+		
+		
+		\begin{dfn}[Expectation]{dfn:expect}{ }
+			$\mathbb{E}[X] := \sum_x x f_X(x)$; $\mathbb{E}[Y] := \int_{-\infty}^{\infty} y f_Y(y) \text{ dy}$.\\
+			$\mathbb{E}[g(X)] = \sum_x g(x) f_X(x)$; $\mathbb{E}[g(Y)] = int_{-\infty}^{\infty}g(y) f_Y(y) \text{ dy}$
+			\begin{itemize}
+				\item Expectation is linear ($\mathbb{E}[aX + b] = a\mathbb{E}[X] + b$ for $a, b\in \mathbb{R}$).
+				\item Expectation of sum is sum of expectation: $\mathbb{E}[X + Y] = \mathbb{E}[X] + \mathbb{E}[Y]$.
+				\item If $X, Y$ \textbf{ind.} then $\mathbb{E}[XY] = \mathbb{E}[X] \cdot  \mathbb{E}[Y]$
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		\begin{dfn}[Variance]{dfn:var}{ }
+			$\Var(X) := \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] = \mathbb{E}[X]^2 = \mathbb{E}[X(X - \mathbb{E}[X])]$ 
+			\begin{itemize}
+				\item $\Var (aX + b) = a^2\Var(X)$ for $a, b\in \mathbb{R}$.
+				\item $\Var(aX + bY + c) = a^2\Var(X) + b^2\Var(Y) + 2ab\Cov(X, Y)$ for $a, b, c\in \mathbb{R}$
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		\begin{dfn}[Covariance And Correlation]{dfn:covncor}{ }
+			$\Cov(X, Y) = \mathbb{E}[(X - \mathbb{E}[X]) (Y - \mathbb{E}[Y])] = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]$\\
+			$\Cor(X, Y) = \Cov(X, Y)/\sqrt{\Var(X) \Var(Y)}$
+			\begin{itemize}
+				\item $\Cov(X, X) = \Var(X)$
+				\item $\Cov(aX +b, cY + d) = ac\Cov(X, Y)$ for $a, b, c, d\in \mathbb{R}$.
+				\item Correlation is a unitless measurement in $[-1, 1]$ with sign indicating direction of lin. dep. and magnitude measuring strength.
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MAXIMUM LIKELIHOOD ESTIMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\footnotesize \textbf{\underline{Maximum Likelihood Estimation}}}
+
+	{\tiny\textbf{\underline{The Likelihood Function}}}
+		
+		
+		\begin{mdfn}[Likelihood And Log-Likelihood Function]{mdfn:likfunc}{ }
+			Consider a random sample $\bm{Y} = (Y_1, \dots, Y_n)$ from a distribution with pdf $f_{\bm{Y}} (\cdot , \theta)$ with $\theta\in \Theta$ unknown. Given a vector $\bm{y}$, a realisation of $\bm{Y}$, the \textbf{likelihood function} is $L(\theta; \bm{y}) = f_{\bm{Y}}(\bm{y}; \theta)$, ie the evaluation of the pdf/pmf at $\bm{y}$.\\
+			The \textbf{log-likelihood function} $\ell (\theta; \bm{y})$ is the natural logarithm of the likelihood function.
+			\begin{itemize}
+				\item Note the likelihood function is \textbf{not} a pdf/pmf
+				\item If $Y_1, \dots, Y_n \overset{iid}{\sim} f_Y(y; \theta)$ then $L(\theta; \bm{y}) = \prod_{i=1}^{n} f_Y(y_i; \theta)$ and $\ell(\theta; \bm{y}) = \sum^{n}_{i=1}\ln f_Y(y_i; \theta)$.
+			\end{itemize}
+			
+		\end{mdfn}
+		
+		
+		
+\end{multicols*}	
+	
+\end{document}

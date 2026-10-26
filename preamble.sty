@@ -81,6 +81,22 @@
 
 
 % ╭──────────────────────────────────────────────────────────╮
+% │                 Custom Math Operators                    │
+% ╰──────────────────────────────────────────────────────────╯
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\can}{can}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\gen}{gen}
+\DeclareMathOperator{\Hom}{Hom}
+
+
+% ╭──────────────────────────────────────────────────────────╮
 % │                   Import Environments                    │
 % ╰──────────────────────────────────────────────────────────╯
 
@@ -100,6 +116,13 @@
 \usepackage{tabularx}
 % Code blocs
 \usepackage{listings}
+
+%Augmented matrix environment by Jim Hefferon
+\newenvironment{amatrix}[1]{%
+	\left[\begin{array}{@{}*{#1}{c}|c@{}}
+	}{%
+	\end{array}\right]
+}
 
 
 % ╭──────────────────────────────────────────────────────────╮
