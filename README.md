@@ -43,7 +43,7 @@ For examples of how to write using this package, have a look at existing exam sh
 - `Leon-Leegacy` contains all legacy files from Leon's work, though you are better off looking at it on [Leon's Notes](https://github.com/leon0241/leon-latex-notes/)
 
 ## A Note on LaTeX
-I write all my exam sheets via TexStudio and rarely use any other LaTeX editor, in theory everything should work fine on any other system but no guarantees! I would also thoroughly recommend learning TexStudio or a similar program early in your LaTeX-writing career, and creating snippets/macros/etc which are customised to your tastes and intuition. Doing this has hugely increased the speed at which I can write these files and was well worth the initial time investment.
+I write all my exam sheets via TexStudio with the MiKTeX distribution, and rarely use any other LaTeX editor - in theory everything should work fine on any other system but no guarantees! I would also thoroughly recommend learning TexStudio or a similar program early in your LaTeX-writing career, and creating snippets/macros/etc which are customised to your tastes and intuition. Doing this has hugely increased the speed at which I can write these files and was well worth the initial time investment.
 
 
 ---
