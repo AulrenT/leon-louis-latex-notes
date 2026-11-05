@@ -23,7 +23,7 @@ LaTeX exam sheets for all Level 10 and Level 11 UoE Maths exams that I took (bar
 
 ## How To Use
 These sheets rely on the thmboxes package and the preamble.sty file (through which all other packages are imported). All my notes rely on thmboxes_v5, Leon's use a variety of previous versions. Recompiling those with v5 is possible but requires a large amount of editing. See [leon-latex-thmboxes](https://github.com/leon0241/leon-latex-thmboxes) for more detail.  
-In order to edit these sheets or create your own, you will need the `preamble.sty` and `thmboxes_v5.sty` files from <a href='Key-Files'>here </a>, and optionally the `template-2p` file <a href='template/template-2p'>here </a>. 
+In order to edit these sheets or create your own, you will need the `preamble.sty` and `thmboxes_v5.sty` files from <a href='Key-Files'>here </a>, and optionally the `template-2p.tex` file <a href='template/template-2p'>here </a>. 
 Call the packages in the beginning of your document via 
 
 ```
@@ -43,7 +43,7 @@ For examples of how to write using this package, have a look at existing exam sh
 - `Leon-Leegacy` contains all legacy files from Leon's work, though you are better off looking at it on [Leon's Notes](https://github.com/leon0241/leon-latex-notes/)
 
 ## A Note on LaTeX
-I write all my exam sheets via TexStudio and rarely use any other LaTeX editor, in theory everything should work fine on any other system but no guarantees! I would also thoroughly recommend learning TexStudio or a similar program early in your LaTeX-writing career, and creating snippets/macros/etc which are customised to your tastes and intuition. Doing this has hugely increased the speed at which I can write these files and was well worth the initial time investment.
+I write all my exam sheets via TexStudio with the MiKTeX distribution, and rarely use any other LaTeX editor - in theory everything should work fine on any other system but no guarantees! I would also thoroughly recommend learning TexStudio or a similar program early in your LaTeX-writing career, and creating snippets/macros/etc which are customised to your tastes and intuition. Doing this has hugely increased the speed at which I can write these files and was well worth the initial time investment.
 
 
 ---
