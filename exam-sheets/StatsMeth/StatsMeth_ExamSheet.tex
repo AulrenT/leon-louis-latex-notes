@@ -28,19 +28,17 @@
 	\subsection*{StatsMeth Exam 2026/7 - }
 	\vspace{-5pt}
 	
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBABILITY/STATS REFRESH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 		\begin{rem}[Notation]{rem:notation}{ }
 			\begin{itemize}
 				\item Typically $X$ for discrete RV, $Y$ for continuous
 			\end{itemize}
 			
 		\end{rem}
-
-
+		
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROBABILITY/STATS REFRESH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 {\footnotesize \textbf{\underline{Probability/Statistics Refresh}}}
 		
@@ -52,7 +50,7 @@
 				\item \textbf{CDF} - $\mathbb{P}[X \le x]$ - $F_X (x)$ = $\sum_{u \le x} f_X(u)$ or $\int_{-\infty}^{y} f_Y(u) \text{ du}$
 				\item \textbf{Quantile} - $q_p = F^{-1}_Y(p)$ for prob $p$ s.t. $\mathbb{P}[Y \le q_p] = F_Y(q_p) = p$
 				\item \textbf{Joint pmfs} - $f_{XY} (x, y) = \mathbb{P}[X = x \cap Y = y]$
-				\item \textbf{Joint pdfs} - $f_{XY} (x, y) = \mathbb{P}[(X, Y)\in T \subseteq \mathbb{R}^2] = \iint_{(x, y)\in T} f_{XY} (x, y) \text{ dx} \text{ dy}$
+				\item \textbf{Joint pdfs} - $f_{XY} (x, y) = \mathbb{P}[(X, Y)\in T \subseteq \mathbb{R}^2] = \iint_{(x, y)\in T} f_{XY} (x, y) \text{ dxdy}$
 				\item \textbf{Marginal pmf/pdf} - $f_X(x) = \sum_{y} f_{XY} (x, y)$ or $\int_{-\infty}^{\infty}f_{XY} (x, y) \text{ dy}$
 				\item \textbf{Conditional pmf/pdf} - $F_{X|Y} (x | y) = \frac{f_{XY} (x, y)}{f_Y(y)}$
 				\item \textbf{Independence} - $\bm{X} = (X_1, \dots, X_n)$ ind. iff $F_{\bm{X}} (\bm{x}) = \prod_{i=1}^{n}f_{X_i} (x_i)$
@@ -114,15 +112,13 @@
 		\end{dfn}
 		
 		
-		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MAXIMUM LIKELIHOOD ESTIMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LIKELIHOOD-BASED INFERENCE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-{\footnotesize \textbf{\underline{Maximum Likelihood Estimation}}}
-
+{\footnotesize \textbf{\underline{Likelihood-Based Inference}}}
+	
 	{\tiny\textbf{\underline{The Likelihood Function}}}
-		
 		
 		\begin{mdfn}[Likelihood And Log-Likelihood Function]{mdfn:likfunc}{ }
 			Consider a random sample $\bm{Y} = (Y_1, \dots, Y_n)$ from a distribution with pdf $f_{\bm{Y}} (\cdot , \theta)$ with $\theta\in \Theta$ unknown. Given a vector $\bm{y}$, a realisation of $\bm{Y}$, the \textbf{likelihood function} is $L(\theta; \bm{y}) = f_{\bm{Y}}(\bm{y}; \theta)$, ie the evaluation of the pdf/pmf at $\bm{y}$.\\
@@ -133,6 +129,56 @@
 			\end{itemize}
 			
 		\end{mdfn}
+		
+		
+		\begin{mdfn}[Maximum Likelihood Estimator (MLE)]{mdfn:mle}{ }
+			For a parameter $\theta$, the MLE of $\theta$ is $\hat \theta := \arg \max_{\theta\in \Theta} L(\theta; \bm{y}) = \arg \max_{\theta\in \Theta} \ell(\theta; \bm{y})$
+			\begin{itemize}
+				\item In the univariate case, if $L/\ell$ are diffable w.r.t. $\theta$, then $\hat\theta$ is the solution to $ \left. \frac{\partial \ell(\theta; \bm{y})}{\partial \theta} \right|_{\theta = \hat \theta} = 0$. Ensure $\hat \theta$ corresponds to a maximum! (Check $\ell''(\hat \theta; \bm{y})) < 0$.
+				\item If the MLE is not unique for all values of $\theta$ the model is non-identifiable
+			\end{itemize}
+			
+		\end{mdfn}
+		
+		
+		\begin{dfn}[Identifiability Of A Model]{dfn:modiden}{ }
+			A probability model $\{f(y; \theta) : \theta\in \Theta\}$ is \textbf{identifiable} if the mapping $\theta \to f(y; \theta)$ is one-to-one (for any $\theta_1, \theta_2\in \Theta)$, if $f(y; \theta_1) = f(y; \theta_2)\forall y$ then $\theta_1 = \theta_2$). Otherwise it is called \textbf{non-identifiable}.
+			\begin{itemize}
+				\item Generally MLEs are not unique in non-identifiable models (ie more than one value maximises $L/\ell$)
+			\end{itemize}
+			
+		\end{dfn}
+		
+		\begin{xmp}[Checking Model Identifiability]{xmp:modeliden}{ }
+			See Example 1.13 in notes - will type up if it seem useful :)
+			
+		\end{xmp}
+		
+		
+		\begin{thm}[Likelihood Principles]{thm:likprincs}{ }
+			\textbf{Weak:} For a model $f(\cdot; \theta)$; two separate realisations $\bm{x}, \bm{y}$ of rv $Y$ s.t. $L(\theta; \bm{x}) \propto L(\theta; \bm{y})$ must lead to the same inferential conclusions (ie same MLE).\\
+			\textbf{Strong:} Generalises to case where likelihoods are associated to different models - given $\bm{x}$ observed from model $f(\cdot ; \theta)$ and $\bm{z}$ from model $g(\cdot ; \theta)$ s.t. $L_f(\theta; \bm{x}) \propto L_g(\theta; \bm{z})$, they must lead to the same inferential conclusions (same MLE).
+			
+		\end{thm}
+		
+		
+	{\tiny\textbf{\underline{Properties Of The Likelihood And MLE}}}
+		
+		\begin{dfn}[The Random Perspective]{dfn:randpersp}{ }
+			We may treat the lik func, MLE, and their derivatives such as the score function, as random variables dependent on the rv $\bm{Y}$. We replace $\bm{y}$ with $\bm{Y}$ in the definitions, and our new random variables have distributions dependent on the distribution of $\bm{Y}$.
+			
+		\end{dfn}
+		
+		\begin{mdfn}[The Score Function]{mdfn:scorefunc}{ }
+			The \textbf{score function} is $U(\theta; \bm{y}) := \frac{d\ell(\theta; \bm{y})}{d\theta}$, parametrised by the observations $\bm{y}$.
+			\begin{itemize}
+				\item $\hat\theta$ can be found by solving $U(\hat\theta; \bm{y}) = \left. \frac{d\ell(\theta; \bm{y})}{d\theta}\right| _{\theta = \hat\theta} = 0$
+				\item $\mathbb{E}[U(\theta; Y)] = 0$ for well-behaved pdfs
+				\item 
+			\end{itemize}
+			
+		\end{mdfn}
+		
 		
 		
 		
