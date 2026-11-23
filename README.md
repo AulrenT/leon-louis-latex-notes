@@ -8,6 +8,10 @@ LaTeX exam sheets for all Level 10 and Level 11 UoE Maths exams that I took (bar
 <!-- ur lucky i didn't replace ur kofi with mine mate -->
 ## Links to 2-page Exam Sheets
 <i> NB - These PDFs do not have sufficient margin for many printers and may be cropped, make sure to check/test your print margins </i>
+
+### Level 11s
+<li> <b> Fundamentals of Optimisation </b> - <a href='exam-sheets/FuO/PDF/FuOExamSheet.pdf'>click here! </a> <i> WIP </i> </li>
+
 ### Honours Courses 
 <li> <b>Honours Complex Variables</b> - <a href="exam-sheets/HCov/PDF/HCovExamNotes.pdf">click here!</a> </li>
 <li> <b> Honours Algebra</b> - <a href='exam-sheets/HAlg/PDF/HAlgExamNotes.pdf'>click here!</a> </li>
@@ -16,7 +20,8 @@ LaTeX exam sheets for all Level 10 and Level 11 UoE Maths exams that I took (bar
 ### Other Level 10s
 <li> <b> Introduction To Number Theory </b> - <a href='exam-sheets/INT/PDF/INTExamNotes.pdf'>click here! </a>
 <li> <b> Classical Mechanics For Mathematicians </b> - <a href='exam-sheets/CMM/PDF/ClaudialMechanics.pdf'>click here!</a> <i>(Not original content, just a condensed version of another sheet)</i> </li>
-<li> <b> Statistical Methodology </b> - <a href='exam-sheets/StatsMeth/PDF/StatsMethExamNotes.pdf'>click here! </a> <i> WIP </i> </li>
+<li> <b> Statistical Methodology </b> - <a href='exam-sheets/StatsMeth/PDF/StatsMethExamSheet.pdf'>click here! </a> <i> WIP </i> </li>
+<li> <b> Numerical Linear Algebra </b> - <a href='exam-sheets/NLA/PDF/NLAExamSheet.pdf'>click here! </a> <i> WIP </i> </li>
 
 
 
