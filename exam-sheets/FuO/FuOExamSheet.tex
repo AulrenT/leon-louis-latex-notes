@@ -3,6 +3,8 @@
 \usepackage{../../Key-Files/preamble}
 \usepackage[separate]{../../Key-Files/thmboxes_v5}
 
+\DeclareMathOperator{\epi}{epi}
+
 
 \begin{document}
 	
@@ -18,26 +20,234 @@
 \setlength{\abovedisplayshortskip}{0pt}
 \setlength{\belowdisplayshortskip}{0pt}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 \begin{multicols*}{4}
 	\raggedcolumns 
 	%Original template by Leon, modified by Louis
 	\vspace{-5pt}
-	\subsection*{FuO Exam Sheet 2026/7 - The Optimal 2 Pages}
+	\subsection*{FuO Exam Sheet 2026/7 - }
 	\vspace{-5pt}
 	
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TOPIC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BASICS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-{\footnotesize \textbf{\underline{Topic}}}
-	
-	{\tiny\textbf{\underline{Subsection}}}
+{\footnotesize \textbf{\underline{Basics}}}
+		
+		
+		\begin{dfn}[Ingredients]{dfn:ingredients}{ }
+			An optimisation problem has four ingredients:
+			\begin{itemize}
+				\item \textbf{Decision variables} $\mathbf{x}\in \mathbb{R}^n$: Set of controllable inputs we optimise over
+				\item \textbf{Parameters}: Set of fixed uncontrollable inputs 
+				\item \textbf{Feasible Region} $\mathcal{S} \subseteq\mathbb{R}^n$ Description of the set of candidate solns
+				\item \textbf{Objective function} $f: \mathbb{R}^n \to \mathbb{R}$: Measure of how 'good' a candidate soln is
+			\end{itemize}
+			And thus we express an optimisation problem as $(P) \quad \min \{f(\mathbf{x}) : \mathbf{x}\in \mathcal{S}\}$ or equivalently $(P) \quad \min f(\mathbf{x})$ subject to $\mathbf{x}\in \mathcal{S}$.
+			\begin{itemize}
+				\item Any max problem can be made a min problem by negating $f$
+				\item Recall a func $g: \mathbb{R}^n \to \mathbb{R}$ is \textbf{linear} if $g(\alpha \mathbf{x} + \beta \mathbf{y}) = \alpha g(\mathbf{x}) + \beta g(\mathbf{y}) \; \forall \; \mathbf{x, y}\in \mathbb{R}^n$
+				\begin{itemize}
+					\item $g: \mathbb{R}^n \to \mathbb{R}$ is linear iff $\exists \mathbf{a}\in \mathbb{R}^n$ s.t. $g(\mathbf{x}) = \mathbf{a}^T \mathbf{x} \; \forall \; \mathbf{x}\in \mathbb{R}^n$
+					\item Every linear function $g$ has $g(\mathbf{0}) = 0$
+				\end{itemize}
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		\begin{dfn}[Terminology]{dfn:terminology}{ }
+			\begin{itemize}
+				\item $\mathcal{S}$ is the \textbf{feasible region} or \textbf{feasible set}
+				\item Any soln $\mathbf{\hat{x}}\in \mathcal{S}$ is a \textbf{feasible solution}
+				\item $\mathbf{x}^*\in \mathcal{S}$ is an \textbf{optimal solution} if $f(\mathbf{x}^*) \le f(\mathbf{\hat{x}}) \forall \mathbf{\hat{x}}\in \mathcal{S}$
+				\item $\mathcal{S}^*$ is the \textbf{set of all optimal solutions}
+				\item $z^*\in \mathbb{R} \cup \{-\infty\} \cup \{\infty\}$ is the \textbf{optimal value} if $z^* \le f(\mathbf{\hat{x}}) \forall \mathbf{\hat{x}}\in \mathcal{S}$ and $\exists$ a sequence $\mathbf{x}^{(k)}\in \mathcal{S}$, $k\in \mathbb{N}$, s.t. $f(\mathbf{x}^{(k)}) \to z^*$ as $k \to \infty$
+				\item If $\mathcal{S}^* \ne \emptyset$ then $z^* = f(\mathbf{x}^*) \forall \mathbf{x}^*\in \mathcal{S}^*$ and $z^*$ is \textbf{attained}
+				\item $(P)$ is \textbf{unbounded} if $\exists$ sequence $\mathbf{x}^{(k)}\in \mathcal{S}, k\in \mathbb{N}$ s.t. $f(\mathbf{x}^{(k)}) \to -\infty$ as $k \to \infty$. Here $\mathcal{S}^* = \emptyset$ and $z^* := -\infty$
+				\item If $\mathcal{S} = \emptyset$ then $(P)$ is \textbf{infeasible} and $z^* := +\infty$
+				\item If $(P)$ is not infeasible or unbdd, $-\infty < z^* < \infty$, but $\mathcal{S}^*$ may still $= \emptyset$
+			\end{itemize}
+			
+			
+		\end{dfn}
+		
+		
+		\begin{mdfn}[Constrained Optimisation]{dfn:constrainedopt}{ }
+			If $\mathcal{S} = \mathbb{R}^n$, $(P)$ is \textbf{unconstrained}, else $\mathcal{S} \subset \mathbb{R}^n$ and $(P)$ is \textbf{constrained}
+			\begin{itemize}
+				\item We typically express $\mathcal{S}$ with functional relations:
+					\begin{itemize}
+						\item $\mathcal{S} = \{\mathbf{x}\in \mathbb{R}^n : g_i(\mathbf{x}) \ge b_i, i\in M_1;\; \ell_i(\mathbf{x}) \le b_i, i\in M_2; \; h_i(\mathbf{x})=b_i, i\in M_3\}$
+						\item $M_1, M_2, M_3$ are finite (maybe empty) index sets
+						\item $g_i/\ell_i/h_i: \mathbb{R}^n \to \mathbb{R}$ for $i\in M_1/M_2/M_3$ and $b_i\in \mathbb{R} \; \forall \; i\in M_1 \cup M_2 \cup M_3$
+					\end{itemize}
+				\item We prefer $\ge/\le$ to $</>$ as $\mathcal{S}$ may not be closed with $</>$ inequalities\\
+				\item $(P)$ is a \textbf{linear programming problem} if all of $f, g_i, \ell_i, h_i$ are linear
+				\sbsadaptr{
+					LPPs can be rephrased as: \\
+					with $\mathbf{c} \in \mathbb{R}^n$ and $\mathbf{a}^{(i)} \in \mathbb{R}^n, b_i\in \mathbb{R}$ for all $i\in M_1 \cup M_2 \cup M_3$
+				}{
+				$ \begin{array}{ccc}
+					(P) \;\;& \min & \mathbf{c}^T\mathbf{x}\\
+					&\text{s.t.} & (\mathbf{a}^{(i)})^T\mathbf{x} \ge b_i, \; i \in M_1\\
+					&&(\mathbf{a}^{(i)})^T\mathbf{x} \le b_i, \; i \in M_2\\
+					&&(\mathbf{a}^{(i)})^T\mathbf{x} = b_i, \; i \in M_3
+				\end{array} $
+				}
+				\item The feasible region of any LPP is a polyhedron
+			\end{itemize}
+			
+		\end{mdfn}
+		
+		
+		\begin{dfn}[Convex Sets]{dfn:convexsets}{ }
+			A set $\mathcal{C} \subseteq \mathbb{R}^n$ is \textbf{convex} if for all $\mathbf{x, y}\in \mathcal{C}$ and $\lambda\in [0, 1]$, we have $\lambda \mathbf{x} + (1-\lambda)\mathbf{y}\in \mathcal{C}$, otherwise it is \textbf{nonconvex}
+			\begin{itemize}
+				\item $\emptyset, \mathbb{R}^n$, and single-element sets are convex
+				\item Convexity is preserved under intersection but not necessarily union
+				\item LPPs are convex optimisation problems, so $\mathcal{S}$ and $\mathcal{S}^*$ are convex
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		\begin{dfn}[Convex/Concave Functions]{dfn:convexfunctions}{ }
+			$f: \mathbb{R}^N \to \mathbb{R}$ is \textbf{convex} if $\forall \; \mathbf{x, y}\in \mathbb{R}^n$ and $\lambda\in [0, 1]$, $$f(\lambda \mathbf{x} + (1-\lambda)\mathbf{y}) \le \lambda f(\mathbf{x}) + (1-\lambda)f(\mathbf{y}).$$
+			\begin{itemize}
+				\item Any linear function is convex and concave
+				\item Intuition - convex if line between any two points on the graph of $f$ do not intersect the graph
+				\item The \textbf{epigraph} of $f$, $\epi(f)$ is the region above the graph of $f$
+				\begin{itemize}
+					\item $f$ is a convex func iff $\epi(f)$ is a convex set
+				\end{itemize}
+			\end{itemize}
+			$f$ is \textbf{concave} if the inequality is reversed. $f$ is concave iff $-f$ is convex.
+		\end{dfn}
+		
+		
+		\begin{dfn}[Level Sets]{dfn:levelsets}{ }
+			For $f: \mathbb{R}^n \to \mathbb{R}$ and $\alpha\in \mathbb{R}$, the \textbf{level set of $f$} is $\mathcal{L}_{\alpha}(f) = \{x\in \mathbb{R}^n : f(x) = \alpha\}$
+			\begin{itemize}
+				\item $\mathcal{L}_\alpha(f)$ is the inverse image of $\alpha$ under $f$
+				\item The union across all $a\in\mathbb{R}$ is equal to $\mathbb{R}^n$
+				\item $\mathcal{L}_\alpha(f) = \emptyset$ iff $\alpha$ not in the range of $f$
+				\item The sublevel (superlevel) set of $f$ is $\mathcal{L}_\alpha^-$ $(\mathcal{L}_\alpha^+)= \{x\in \mathbb{R}^n : f(x) \le (\ge) \alpha\}$
+				\begin{itemize}
+					\item Sublevel sets of convex functions are convex for all $\alpha\in \mathbb{R}$
+					\item Superlevel sets of concave functions are convex for all $\alpha\in \mathbb{R}$
+				\end{itemize}
+			\end{itemize}
+		\end{dfn}
+		
+		
+		\begin{dfn}[Hyperplanes]{dfn:hyperplanes}{ }
+			A \textbf{hyperplane} $\mathcal{H}$ is a level set of a linear function $f(\mathbf{x})$ for $\alpha\in \mathbb{R}$
+			\begin{itemize}
+				\item For linear $f:\mathbb{R}^n \to \mathbb{R}$, $\mathcal{L}_\alpha(f)$ is a hyplane with $n-1$ \textbf{degrees of freedom}
+				\item Every hyperplane is a convex set
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		\begin{dfn}[Halfspaces]{dfn:halfspaces}{ }
+			A \textbf{halfspace} is a sublevel ($\mathcal{H}^-$) or superlevel ($\mathcal{H}^+$) set of a linear $f$
+			\begin{itemize}
+				\item Every halfspace is convex
+				\item $\mathcal{H}$ is the boundary of $\mathcal{H}^-$ and $\mathcal{H}^+$, and $\mathcal{H}^- \cap \mathcal{H}^+ = \mathcal{H}$
+				\item $\mathbf{a}\in \mathbb{R}$ is perpendicular to $\mathcal{H}$ ($\forall \mathbf{x}_1, \mathbf{x}_2\in \mathcal{H}$, $\mathbf{c}^T(\mathbf{x_1} - \mathbf{x}_2) = \alpha - \alpha = 0)$
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		\begin{dfn}[Polyhedra \& Polytopes]{dfn:polyhedranpolytopes}{ }
+			A set $\mathcal{P} \subseteq\mathbb{R}^n$ is a \textbf{polyhedron} if it is given by the intersection of a finite number of hyperplanes and halfspaces.
+			\begin{itemize}
+				\item All polyhedra are convex (they are the intersection of convex sets)
+				\item $\mathcal{S} \subseteq \mathbb{R}^n$ is \textbf{bounded} if $\exists K\in \mathbb{R}$ s.t. $K \ge \left|x_j\right|$ for all components $x_j$ of $\mathbf{x}\in \mathcal{S}$
+				\item A \textbf{polytope} is a bounded polyhedron
+			\end{itemize}
+			
+		\end{dfn}
 		
 		
 		
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% VERTICES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\footnotesize \textbf{\underline{Vertices}}}
+		
+		
+		
+		\begin{thm}[Relating Halfspaces To Constrained Optimisation]{thm:relatehalfspacestoproblem}{ }
+			In the generic constrained optimisation problem (P), the feasible region $\mathcal{S} \subseteq \mathbb{R}^n$ is 
+			$$
+			\mathcal{S} = \{x\in \mathbb{R}^n : g_i(x) \ge b_i, i\in M_1;\; \ell_i(x) \le b_i, i\in M_2; \; h_i(x)=b_i, i\in M_3\}
+			$$$$
+			\mathcal{S} = \bigg(\bigcap_{i\in M_1} \mathcal{L}^+_{b_i}(g_i)\bigg) \cap \bigg(\bigcap_{i\in M_2} \mathcal{L}_{b_i}^-(\ell_i)\bigg) \cap \bigg(\bigcap_{i\in M_3}\mathcal{L}_{b_i}(h_i)\bigg)
+			$$
+			
+		\end{thm}
+		
+		
+		\begin{mdfn}[Convex Optimisation Problems]{dfn:convexoptimisation}{ }
+			The generic (P) is a \textbf{convex optimisation problem} if: $f$ is convex; all $g_i$ are concave; all $\ell_i$ are convex; and all $h_i$ are linear.\\
+			Otherwise it is a \textbf{nonconvex optimisation problem}
+			\begin{itemize}
+				\item Set of LPPs $\subset$ set of convex optimisation problems
+				\item For any LPP $\mathcal{S}$ and $\mathcal{S}^*$ are convex sets
+			\end{itemize}
+			
+		\end{mdfn}
+		
+		
+	{\tiny\textbf{\underline{Vertices Of Convex Sets}}}
+		
+		\begin{mdfn}[A Vertex Of A Convex Set]{dfn:vertexofconvexset}{ }
+			For $\mathcal{C} \subseteq\mathbb{R}^n$ a convex set, $\mathbf{\hat{x}}\in \mathcal{C}$ is a \textbf{vertex of $\mathcal{C}$} if $\exists$ a hyperplane $\mathcal{H}$ with halfspace $\mathcal{H}^+$ such that:
+			\begin{itemize}
+				\item $\mathcal{C} \cap \mathcal{H} = \{\mathbf{\hat{x}}\}$
+				\item $\mathcal{C} \subseteq \mathcal{H}^+$
+			\end{itemize}
+			Such a hyperplane is a \textbf{supporting hyperplane} of $\mathcal{C}$\\
+			Intuition - supporting hyperplanes are tangents to the convex set. They can intersect multiple vertices, if they do then they intersect the edge between those vertices.
+			
+		\end{mdfn}
+		
+		
+		\begin{mthm}[Vertices As Optimal Solutions]{thm:verticesasoptima}{ }
+			$\mathbf{\hat{x}}\in$ convex $\mathcal{C}$ is a vertex of $\mathcal{C}$ iff there exists linear $\ell(\mathbf{x}) = \mathbf{c}^T\mathbf{x}$ for $\mathbf{c}\in \mathbb{R}^n\backslash\mathbf{0}$ such that $\mathbf{\hat{x}}$ is the \textbf{unique optimal solution} to $\min \; \mathbf{c}^T \mathbf{x}$ s.t. $\mathbf{x}\in \mathcal{C}$.
+			
+		\end{mthm}
+		
+		
+		{\tiny\textbf{\underline{Characterising Vertices}}}
+		
+		
+		\begin{mdfn}[Active (aka Binding) Constraints]{dfn:activeconstraints}{ }
+			For $\mathcal{P}$ a polyhedron and $\mathbf{\hat{x}}\in \mathbb{R}^n$, the set of \textbf{active} (aka \textbf{binding}) constraints at $\mathbf{\hat{x}}$ is $$
+			I(\mathbf{\hat{x}}) = \{i\in M_1 \cup M_2 \cup M_3 : (\mathbf{a}^i)^T\mathbf{\hat{x}} = b_i\}
+			$$
+			Note $M_3 \subseteq I(\mathbf{\hat{x}})$ for all $\mathbf{\hat{x}}\in \mathcal{P}$
+			
+		\end{mdfn}
+		
+		
+		\begin{mdfn}[Basic \& Basic Feasible Solutions]{dfn:basicnbasicfeasiblesolns}{ }
+			For $\mathcal{P} \subseteq \mathbb{R}^n$ a polyhedron and $\mathbf{\hat{x}}\in \mathbb{R}^n$:\\
+			$\mathbf{\hat{x}}$ is a \textbf{basic solution} if all equality constraints are active at $\mathbf{\hat{x}}$ (i.e. $M_3 \subseteq I(\mathbf{\hat{x}})$) and the set $\{\mathbf{a}^i\}$
+			
+		\end{mdfn}
+		
+		
+		UP TO PAGE 28 AKA 7-1 - SECTION 7.3
 		
 		
 \end{multicols*}	

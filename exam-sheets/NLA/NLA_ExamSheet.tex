@@ -1,0 +1,234 @@
+\documentclass[landscape, 8pt]{extarticle}
+
+\usepackage{../../Key-Files/preamble}
+\usepackage[separate]{../../Key-Files/thmboxes_v5}
+
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\DeclareMathOperator{\fl}{fl}
+
+
+\begin{document}
+	
+%\fontsize{4pt}{5pt} \selectfont %Smallest legible font size when printing with UoE Main Library printers, however some resolution issues for extremely small charactes such as subscripts inside fractions. Only use if you *really* need the extra space
+\fontsize{5pt}{7pt} \selectfont
+	
+%Reduce horizontal padding in 'tabular' environment, make rows taller for legibility
+\setlength\tabcolsep{4.5pt}
+\setlength\extrarowheight{2pt}
+	
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+\begin{multicols*}{4}
+	\raggedcolumns 
+	%Original template by Leon, modified by Louis
+	\vspace{-5pt}
+	\subsection*{NLA Exam Sheet 2026/27 - $\backslash$bm\{x\} Tricks}
+	\vspace{-5pt}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LINALG RECAP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\footnotesize \textbf{\underline{Linear Algebra Recap}}}
+		
+		
+		\begin{rem}[Notation/Assumptions]{rem:notass}{ }
+			\begin{itemize}
+				\item $\mathbf{x}, \mathbf{y}$, etc. $\in \mathbb{R}^n$ unless otherwise said or clear from context
+				\item Same goes for $A, W$, etc. $\in \mathbb{R}^{n \times n}$
+			\end{itemize}
+			
+		\end{rem}
+		
+		
+		\begin{dfn}[Standard Definitions]{dfn:stddfns}{ }
+			\begin{itemize}
+				\item $\mathbf{x} \cdot \mathbf{y} := \sum_{i=1}^{n}x_i y_i$
+					\begin{itemize}
+						\item $\mathbf{x} \cdot  \mathbf{x} \ge 0$, $=0$ iff $\mathbf{x} = \mathbf{0}$
+					\end{itemize}
+				\item $\mathbf{x}, \mathbf{y}$ are \textbf{orthogonal} if $\mathbf{x} \cdot  \mathbf{y} = 0$.
+				\item For $\mathbf{y} \ne 0$, $\proj_{\mathbf{y}} (\mathbf{x}) := \frac{\mathbf{x} \cdot  \mathbf{y}}{\mathbf{y}\cdot \mathbf{y}}\mathbf{y}$
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		\begin{dfn}[Matrix Properties]{dfn:matrixproperties}{ }
+			\begin{itemize}
+				\item $\rank(A)$ = no. of non-zero rows when $A$ in row-ech form = no. of lin-ind rows of $A$ = no. of lin-ind cols of $A$
+				\item $A$ is \textbf{orthogonal} if $A^TA = I$
+				\item $A$ is \textbf{diagonalisable} if it can be written in form $A = S^{-1}DS$ where the cols of $S$ are the eigvecs of $A$ and $D$ is diagonal with entries the eigvals of $A$ (in same order as eigvecs).
+				\item $A$ is \textbf{orthogonally diagonalisable} if it can be diaged with $S$ orthog. In this case the eigvecs of $A$ form an orthonorm basis of $\mathbb{R}^n$ and the eigvals + eigvecs are real
+				\item $A$ is \textbf{singular} if it has zero determinant
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		\begin{thm}[Standard Theorems]{thm:stdthms}{ }
+			\begin{itemize}
+				\item \textbf{Cauchy-Schwarz:} $\left|\mathbf{x} \cdot \mathbf{y}\right| \le \left\lVert \mathbf{x}\right\rVert_2 \left\lVert \mathbf{y}\right\rVert_2$
+				\item TFAE: `$A\mathbf{x} = \mathbf{0}$ iff $\mathbf{x} = \mathbf{0}$' and `$\rank(A) = n$'
+				\item $\det(AB) = \det(A)\det(B)$
+				\item The columns of an orthogonal matrix form an orthonormal set (all cols have norm $=1$ and are orthog)
+				\item $A$ is diagable iff it has $n$ lin-ind eigvecs
+				\item If $A$ is symmetric then it is orthogonally diagable
+			\end{itemize}
+			
+		\end{thm}
+		
+		\begin{thm}[Matrix Cookbook Laws]{thm:matcalclaws}{ }
+			\begin{itemize}
+				\item $(AB)_{ij} =$ the $i^{th}$ row of $A$ dotted with the $j^{th}$ col of $B$
+				\item Mat-mul is distributive but \textbf{not} commutative
+			\end{itemize}
+			\sbsadapt{
+			\begin{itemize}
+				\item $(AB)^T = B^TA^T$
+				\item $(A\mathbf{x})^T = \mathbf{x}^TA^T$
+				\item $(A + B)^T = A^T + B^T$
+			\end{itemize}
+			}
+			{
+			\begin{itemize}
+				\item $(AB)^{-1} = B^{-1}A^{-1}$ 
+			\end{itemize}
+			}
+				
+			
+		\end{thm}
+		
+		
+		
+		
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BACKGROUND %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\footnotesize \textbf{\underline{Introductory/Basics}}}
+		
+		
+		
+		\begin{dfn}[Floating Point \& Machine Epsilon $\epsilon_m$]{dfn:macheps}{ }
+			Computers use floating point to represent a finite set of numbers (due to finitely many bits). $\fl : \mathbb{R} \to \mathbb{F}$ is the rounding from $\mathbb{R}$ to the closest representable element. FP representation is in the form sign $\cdot$ mantissa $\cdot$  $2^{\text{exponent}}$\\
+			Every computer has a parameter \textbf{machine epsilon} denoted $\epsilon_m$ with:
+			\begin{itemize}
+				\item For all $\alpha\in \mathbb{R}$, $\exists\epsilon\in (-\epsilon_m,\epsilon_m)$ s.t. $\fl(\alpha) = \alpha(1+\epsilon)$
+				\item For all $\alpha, \beta\in \mathbb{F}$ and $\ast \in \{+, -, \times, \div\}$, $\exists \delta\in (-\epsilon_m,\epsilon_m)$ s.t. $\alpha \circledast \beta = (\alpha \ast \beta)(1+\delta)$ with $\circledast$ the computed version of $\ast$
+			\end{itemize}
+			In standard double-precision $64$-bit FP, $\epsilon_m \approx 2.22 \cdot 10^{-16}$
+			
+		\end{dfn}
+		
+		
+		\begin{dfn}[Computational Cost]{dfn:computationalcost}{ }
+			The \textbf{cost} $C$ of an algorithm is the number of FP operations (FLOPS) it needs. $C(n) = O(f(n))$ if $\exists \alpha > 0$ s.t. $C(n) \le \alpha f(n) \; \forall \; n$
+			
+		\end{dfn}
+		
+		
+		\begin{mdfn}[Norms]{mdfn:}{ }
+			On $\mathbb{R}^n$ the \textbf{vector $\mathbf{p}-$norm} for $p\in [1, \infty)$ is $\left\lVert \mathbf{x} \right\rVert_p := (\sum^{n}_{i=1} \left|x_i\right|^p)^{1/p}$ and $\left\lVert \mathbf{x}\right\rVert_\infty := \max_{1 \le i \le n} \left|x_i\right|$. Notably $\left\lVert \mathbf{x}\right\rVert_2 = \sqrt{\mathbf{x}^T\mathbf{x}}$.\\
+			In general a norm on $\mathbb{R}^n$ is a func $\left\lVert \cdot \right\rVert:\mathbb{R}^n \to \mathbb{R}$ s.t. $\forall \; \mathbf{x, y}\in \mathbb{R}^n$:
+			\begin{itemize}
+				\item $\left\lVert \mathbf{x}\right\rVert \ge 0$ and $\left\lVert \mathbf{x}\right\rVert = 0 \iff \mathbf{x} = \mathbf{0}$
+				\item $\left\lVert \alpha\mathbf{x}\right\rVert = \left|\alpha\right| \left\lVert \mathbf{x}\right\rVert \; \forall \; \alpha\in \mathbb{R}$
+				\item $\left\lVert \mathbf{x} + \mathbf{y}\right\rVert \le \left\lVert \mathbf{x}\right\rVert + \left\lVert \mathbf{y}\right\rVert$
+			\end{itemize}
+			For $A\in \mathbb{R}^{m \times n}$ the \textbf{induced $\mathbf{p}$-norm} is $\left\lVert A\right\rVert_p := \max_{\mathbf{x \ne 0}} \frac{\left\lVert A\mathbf{x}\right\rVert_p}{\left\lVert \mathbf{x}\right\rVert_p}$
+			\begin{itemize}
+				\item $\left\lVert A\right\rVert_\infty = \max_{1 \le i \le m} \sum^{n}_{j=1} \left|a_{ij}\right|$ (maximum row sum)
+				\item $\left\lVert A\right\rVert_1 = \max_{1 \le j \le n} \sum^{m}_{i=1} \left|a_{ij}\right|$ (maximum col sum)
+				\item $\left\lVert A\right\rVert_2 = \sqrt{\rho(A^TA)} = \sqrt{\max\{\left|\lambda\right| : \lambda \text{ an eigval of} A^TA\}}$
+			\end{itemize}
+			
+		\end{mdfn}
+		
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% LINEAR SYSTEMS OF EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+{\footnotesize \textbf{\underline{Linear Systems Of Equations}}}
+		
+		\begin{rem}[Setup]{rem:setup}{ }
+			Want to solve $A\mathbf{x} = \mathbf{b}$ for $A\in \mathbb{R}^{n \times n}$ invertible, $b\in \mathbb{R}^n$. Uniquely solved by $\mathbf{x} = A^{-1}\mathbf{b}$ but computing $A^{-1}$ is slow and unstable.\\
+			Core idea is factorising $A=MN$, solving $M\mathbf{y} = \mathbf{b}$ then solving $N\mathbf{x} = \mathbf{y}$, with $M, N$ matrices s.t. the system is easier to solve.
+			
+		\end{rem}
+		
+		
+	{\tiny\textbf{\underline{LU Factorisation}}}
+		
+		
+		\begin{dfn}[LU Factorisation]{dfn:lufactorisation}{ }
+			For $A\in \mathbb{R}^{n \times n}$ an \textbf{LU factorisation} is $A = LU$ where $L\in \mathbb{R}^{n \times n}$ is unit (all diagonal entries $=1$) lower triangular and $U\in \mathbb{R}^{n \times n}$ is non-singular upper triangular.
+			
+			\begin{itemize}
+				\item If $L$ unit lower-triang with nonzero entries below the diagonal only in col. $k$, then $L^{-1}$ is also u.l.t with nonzero entries below the diagonal only in col. $k$, and $(L^{-1})_{ik} = -L_{ik}$ for $i > k$.
+				\item For $A, B\in \mathbb{R}^{n \times n}$ u.l.t where $A$ has non-zero entries below the diag only in col.s $1$ to $k$ and $B$ only in col.s $k+1$ to $n$; $AB$ is u.l.t. with $(AB)_{ij} = A_{ij}$ for $j \le k$ and $=B_{ij}$ for $j ge k +1$.
+				\item Think GE - matrix $L_k$ is the ERO of subtracting multiples of row $k$ from rows below so is l.t.
+				\item An LU fac of $A$ exists and is unique if $A$ is non-singular and can be put into row-echelon form without row swaps.
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		\begin{thm}[LU Algorithms]{thm:lualgorithms}{ }
+			\begin{algorithm}[H]
+				\caption{LU Factorisation}
+				\begin{algorithmic}
+				\State test
+				\end{algorithmic}
+			\end{algorithm}
+			
+		\end{thm}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% LINEAR SYSTEMS OF EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\footnotesize \textbf{\underline{List Of Algorithms}}}
+	
+		
+		
+		
+		\begin{dfn}[Basic Algorithms]{dfn:basicalgs}{ }
+			\begin{itemize}
+				\item DP for dot prod of $x, y\in \mathbb{R}^n$ has $C(n) = 2n = O(n)$
+				\item MV for prod of $A \in \mathbb{R}^{m \times n}, x\in \mathbb{R}^n$ has $C(m, n) = 2mn = O(mn)$
+				\item MM for prod of $A\in \mathbb{R}^{m \times n}, B\in \mathbb{R}^{n \times p}$ has $C(m, n, p) = 2mnp = O(mnp)$
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		
+		
+		
+\end{multicols*}	
+	
+\end{document}
