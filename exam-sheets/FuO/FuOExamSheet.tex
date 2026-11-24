@@ -144,7 +144,7 @@
 		
 		
 		\begin{dfn}[Hyperplanes]{dfn:hyperplanes}{ }
-			A \textbf{hyperplane} $\mathcal{H}$ is a level set of a linear function $f(\mathbf{x})$ for $\alpha\in \mathbb{R}$
+			A \textbf{hyperplane} $\mathcal{H}$ is a level set of a linear function $f(\mathbf{x})$ for $\alpha\in \mathbb{R}$, can be written as $\mathcal{H} = \{\mathbf{x}\in \mathbb{R}^n : \mathbf{a}^T\mathbf{x} = \alpha\}$ where $f(\mathbf{x}) = \mathbf{a}^T \mathbf{x}$ for some $\mathbf{a}\in \mathbb{R}^n$.
 			\begin{itemize}
 				\item For linear $f:\mathbb{R}^n \to \mathbb{R}$, $\mathcal{L}_\alpha(f)$ is a hyplane with $n-1$ \textbf{degrees of freedom}
 				\item Every hyperplane is a convex set
@@ -211,11 +211,7 @@
 	{\tiny\textbf{\underline{Vertices Of Convex Sets}}}
 		
 		\begin{mdfn}[A Vertex Of A Convex Set]{dfn:vertexofconvexset}{ }
-			For $\mathcal{C} \subseteq\mathbb{R}^n$ a convex set, $\mathbf{\hat{x}}\in \mathcal{C}$ is a \textbf{vertex of $\mathcal{C}$} if $\exists$ a hyperplane $\mathcal{H}$ with halfspace $\mathcal{H}^+$ such that:
-			\begin{itemize}
-				\item $\mathcal{C} \cap \mathcal{H} = \{\mathbf{\hat{x}}\}$
-				\item $\mathcal{C} \subseteq \mathcal{H}^+$
-			\end{itemize}
+			For $\mathcal{C} \subseteq\mathbb{R}^n$ a convex set, $\mathbf{\hat{x}}\in \mathcal{C}$ is a \textbf{vertex of $\mathcal{C}$} if $\exists$ a hyperplane $\mathcal{H}$ with halfspace $\mathcal{H}^+$ such that both $\mathcal{C} \cap \mathcal{H} = \{\mathbf{\hat{x}}\}$; and $\mathcal{C} \subseteq \mathcal{H}^+$
 			Such a hyperplane is a \textbf{supporting hyperplane} of $\mathcal{C}$\\
 			Intuition - supporting hyperplanes are tangents to the convex set. They can intersect multiple vertices, if they do then they intersect the edge between those vertices.
 			
@@ -232,7 +228,7 @@
 		
 		
 		\begin{mdfn}[Active (aka Binding) Constraints]{dfn:activeconstraints}{ }
-			For $\mathcal{P}$ a polyhedron and $\mathbf{\hat{x}}\in \mathbb{R}^n$, the set of \textbf{active} (aka \textbf{binding}) constraints at $\mathbf{\hat{x}}$ is $$
+			For $\mathcal{P}$ a polyhedron and $\mathbf{\hat{x}}\in \mathbb{R}^n$, the set of \textbf{active}  constraints at $\mathbf{\hat{x}}$ is $$
 			I(\mathbf{\hat{x}}) = \{i\in M_1 \cup M_2 \cup M_3 : (\mathbf{a}^i)^T\mathbf{\hat{x}} = b_i\}
 			$$
 			Note $M_3 \subseteq I(\mathbf{\hat{x}})$ for all $\mathbf{\hat{x}}\in \mathcal{P}$
@@ -241,13 +237,69 @@
 		
 		
 		\begin{mdfn}[Basic \& Basic Feasible Solutions]{dfn:basicnbasicfeasiblesolns}{ }
-			For $\mathcal{P} \subseteq \mathbb{R}^n$ a polyhedron and $\mathbf{\hat{x}}\in \mathbb{R}^n$:\\
-			$\mathbf{\hat{x}}$ is a \textbf{basic solution} if all equality constraints are active at $\mathbf{\hat{x}}$ (i.e. $M_3 \subseteq I(\mathbf{\hat{x}})$) and the set $\{\mathbf{a}^i\}$
+			For $\mathcal{P} \subseteq \mathbb{R}^n$ a polyhedron and $\mathbf{\hat{x}}\in \mathbb{R}^n$, $\mathbf{\hat{x}}$ is a \textbf{basic solution} if both:\\
+			\begin{enumerate}[label=(\roman*)]
+				\item All equality constraints are active at $\mathbf{\hat{x}}$ (i.e. $M_3 \subseteq I(\mathbf{\hat{x}})$)
+				\item $\{\mathbf{a}^i : i \in I(\mathbf{\hat{x}})\} \subset \mathbb{R}^n$ contains $n$ lin-ind vectors (ie spans $\mathbb{R}^n$)
+			\end{enumerate} 
+			$\mathbf{\hat{x}}$ is a \textbf{basic feasible solution} if it is basic and feasible
+			
+			\begin{itemize}
+				\item Consider matrix $A(\mathbf{\hat{x}})$ with rows $(\mathbf{a}^{(i)})^T$ for $i\in I(\mathbf{\hat{x}})$. The no. of rows of $A$ is the number of active constraints at $\mathbf{\hat{x}}$, $\left|I(\mathbf{\hat{x}})\right|$. Thus $A$ has rank $n$ so the only vector in its null space is $\mathbf{0}\in \mathbb{R}^n$
+				\item Equivalently $(\mathbf{a}^{(i)})^T \mathbf{d} = \mathbf{0}$ for $i\in I(\mathbf{\hat{x}})$ iff $\mathbf{d} = \mathbf{0}\in \mathbb{R}^n$
+			\end{itemize}
 			
 		\end{mdfn}
 		
 		
-		UP TO PAGE 28 AKA 7-1 - SECTION 7.3
+		\begin{thm}[Basic Feasible iff A Vertex]{thm:basicfeasibleiffvertex}{ }
+			For polyhedron $\mathcal{P} \subseteq\mathbb{R}^n$, $\mathbf{\hat{x}}\in \mathcal{P}$ is a bas-feas soln of $\mathcal{P}$ iff it is a vertex of $\mathcal{P}$
+			\vspace{-7pt}
+			\begin{proof}
+				$\implies$: Need $\mathbf{a}\in \mathbb{R}^n\backslash \mathbf{0}$ and $\alpha\in \mathbb{R}$ s.t. $\mathbf{a}^T\mathbf{\hat{x}} = \alpha$ and $\mathbf{a}^T\mathbf{x} > \alpha$ for $\mathbf{x}\in \mathcal{P}\backslash\{\mathbf{\hat{x}}\}$. Take $I \subseteq I(\mathbf{\hat{x}})$ s.t. $\{\mathbf{a}^{(i)} : i\in I\}$ is a basis for $\mathbb{R}^n$. \\
+				If $\mathbf{a} = \sum_{i\in I \cap (M_1 \cup M_3)} \mathbf{a}^{(i)}  + \sum_{i\in I \cap M_2}-\mathbf{a}^{(i)}$ then $\mathbf{a} \ne \mathbf{0}$ and \\
+				$\alpha = \mathbf{a}^T\mathbf{\hat{x}} =  \sum_{i\in I \cap (M_1 \cup M_3)} (\mathbf{a}^{(i)})^T\mathbf{\hat{x}}  + \sum_{i\in I \cap M_2}-(\mathbf{a}^{(i)})^T\mathbf{\hat{x}} =  \sum_{i\in I \cap (M_1 \cup M_3)} b_i  + \sum_{i\in I \cap M_2}-b_i$. If $\mathcal{H} = \{x\in \mathbb{R}^n: \mathbf{a}^T\mathbf{x} = \alpha\}$ and $\mathcal{H}^+ = \{x\in \mathbb{R}^n : \mathbf{a}^T \mathbf{x} \ge \alpha\}$ then $\mathbf{\hat{x}}\in \mathcal{P} \cap \mathcal{H}$. For $\mathbf{x}\in \mathcal{P}$, $\mathbf{a}^T \mathbf{x} \ge \mathbf{a}^T\mathbf{\hat{x}} = \alpha$ by individual bounds of $b_i$ so $\mathcal{P} \subseteq \mathcal{H}^+$; and for any $\mathbf{x}\in \mathcal{P} \cap \mathcal{H}$, $(\mathbf{a}^{(i)})^T\mathbf{x} = b_i$ for $i\in I$, so $(\mathbf{a}^{(i)})^T(\mathbf{x} - \mathbf{\hat{x}}) = \mathbf{0}$ for $ i\in I$. Since $\{\mathbf{a}^{(i)} : i\in I\}$ is a basis, $\mathbf{x} - \mathbf{\hat{x}} = \mathbf{0} \implies \mathcal{P} \cap \mathcal{H} = \{\mathbf{\hat{x}}\}$. Thus $\mathbf{\hat{x}}$ is a vertex of $\mathcal{P}$.\\
+				$\impliedby$: Know $\exists$ $\mathbf{a}\in \mathbb{R}^n \backslash\mathbf{0}$, $\alpha\in \mathbb{R}$, $\mathcal{H} = \{x\in \mathbb{R}^n : \mathbf{a}^T\mathbf{x} = \alpha\}$ and corresponding $\mathcal{H}^+$ s.t. $P \subseteq \mathcal{H}^+$ and $P \cap \mathcal{H} = \{\mathbf{\hat{x}}\}$. Do by contradiction: $\mathbf{\hat{x}}$ is feasible so for non-b.f. cannot be basic. So $\{\mathbf{a}^i : i\in I(\mathbf{\hat{x}})\}$ doesn't have $n$ lin-ind vecs. Then $\exists \mathbf{d}\in \mathbb{R}^n \backslash\mathbf{0}$ s.t. $(\mathbf{a}^{(i)})^T\mathbf{d} = \mathbf{0}$ for all $i\in I(\mathbf{\hat{x}})$. Take $\epsilon > 0$ and $\mathbf{\hat{x}} \pm\epsilon\mathbf{d}$. $(\mathbf{a}^{(i)})^T\mathbf{d} = \mathbf{0}$ for $i\in I(\mathbf{\hat{x}})$ implies $(\mathbf{a}^{(i)})^T(\mathbf{x} \pm\epsilon\mathbf{d}) = b_i$ for $i\in I(\mathbf{\hat{x}})$. For $i\in M_1\backslash I(\mathbf{\hat{x}})$ ($\in M_2\backslash I(\mathbf{\hat{x}})$) must have $(\mathbf{a}^{(i)})^T\mathbf{x} > (<) b_i$ so $(\mathbf{a}^{(i)})^T(\mathbf{\hat{x}} +\epsilon\mathbf{d}) \ge (\le)$ for $\epsilon$ small enough. So can find $\epsilon^* > 0$ s.t. $\mathbf{\hat{x}} \pm \epsilon^*\mathbf{d}$ both $\in \mathcal{P}$, apply $x\in \mathcal{P} \implies \mathbf{a}^T \mathbf{x} \ge \alpha$ for $\mathbf{a}^T\mathbf{d} >0$ and $<0$ for contradiction.
+			\end{proof}
+			
+		\end{thm}
+		
+		
+		
+		{\tiny\textbf{\underline{Existence Of Vertices}}}
+		
+		
+		\begin{dfn}[Lines]{dfn:line}{ }
+			A polyhedron $\mathcal{P}$ contains a line if $\exists \mathbf{\hat{x}}\in \mathcal{P}$ and $\mathbf{d}\in \mathbb{R}^n \backslash \mathbf{0}$ s.t. $\mathbf{\hat{x}} + \lambda \mathbf{d}\in \mathcal{P}$ for all $\lambda\in \mathbb{R}$.
+			\begin{itemize}
+				\item $\mathcal{P}$ has a vertex iff it does not contain a line
+				
+%%%% UNFINISHED !!!!!!!!!!!!! PROBS NOT WORTH PUTTING IN THO
+%				\vspace{-7pt}
+%				\begin{proof}
+%					$\implies$: By contrapositive, since $(\mathbf{a}^{(i)})^T \mathbf{\hat{x}}$ and $(\mathbf{a}^{(i)})^T (\mathbf{\hat{x}} + \lambda \mathbf{d})$ both satisfy constraints re $b_i$ we can get $(\mathbf{a}^{(i)})^T \mathbf{d} = \mathbf{0}$ for $i\in M_1 \cup M_2 \cup M_3$ so for all $\mathbf{x}\in \mathcal{P}$, $(\mathbf{a}^{(i)})^T\mathbf{d} = \mathbf{0}$ for $i\in I(\mathbf{x})$ so $\{a^{(i)} : i\in I(\mathbf{x})\}$ cannot have $n$ lin-ind vecs, so no $\mathbf{x}\in \mathcal{P}$ can be a vertex.\\
+%					$\impliedby$: By last part, if $\nexists$ a line, $\nexists \mathbf{d}$ sending all $(\mathbf{a}^{(i)})^T$ to $\mathbf{0}$. Want $\mathbf{\hat{x}}\in \mathcal{P}$ s.t. $\{\mathbf{a}^{(i)} : i\in I(\mathbf{\hat{arg}})\}$ has n lin-ind vecs. If it doesn't for some $\mathbf{\hat{x}}\in \mathcal{P}$, a $\mathbf{d}$ sending all $(\mathbf{a}^{(i)})^T$ exists. Go on the line $\mathbf{\hat{x}} + \lambda\mathbf{d}$ to $\mathbf{x}^*$ where a new constraint $i^*$ binds, $(\mathbf{a}^{(i^*)})^T \mathbf{d} \ne 0$ and $I(\mathbf{x}^*) \supseteq I(\mathbf{\hat{x}})$, $(\mathbf{a}^{(i^*)})^T$ not a lin-comb of $						
+%				\end{proof}
+				\item Nonempty polytopes have vertices (since they cannot contain lines)
+				\item Nonempty polyhedra have at most a finite number of vertices (if they have no lines, any $\mathbf{\hat{x}}\in \mathcal{P}$ has $I(\mathbf{\hat{x}}) \subseteq M_3 \cup J$ for $J \subseteq M_1 \cup M_2$, so finite number of sets of binding constraints. Only a subset of those have $n$ lin-ind $\mathbf{a}^{(i)}$, if $\mathbf{x}_1$ and $\mathbf{x}_2$ have same $I$ and $I$ gives $n$ lin-ind $\mathbf{a}^{(i)}$, then $(\mathbf{a}^{(i)})^T(\mathbf{x}_1 - \mathbf{x})_2 = \mathbf{0}$ for $i\in I$.)
+				\item General convex sets can have an infinite number of vertices (e.g. a circle)
+			\end{itemize}
+			
+		\end{dfn}
+		
+		
+		{\tiny\textbf{\underline{Graphical Solution Method}}}
+		
+		
+		\begin{rem}[Graphical Solution Method]{rem:graphicalsolution}{ }
+			Only works in 1D and 2D really, if Miguel asks us to draw in 3D there will be tears. Just draw the feasible region and $-\mathbf{c}$ then go as far in the $-\mathbf{c}$ direction as possible. Remember that an optimal solution will always occur at some vertex if one exists! 
+			
+		\end{rem}
+		
+		
+		
+		
+		UP TO PAGE 44 - START OF LECTURE 10
 		
 		
 \end{multicols*}	
